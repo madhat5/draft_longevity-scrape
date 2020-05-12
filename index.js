@@ -18,8 +18,8 @@ const draftYrs = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 async function draftLists(page) {
     const data = [];
     
-    // for (var i = 0; i < draftYrs.length; i++) {
-        await page.goto('https://www.pro-football-reference.com/years/2010/draft.htm')
+    for (var i = 0; i < draftYrs.length; i++) {
+        await page.goto('https://www.pro-football-reference.com/years/' + draftYrs[i] + '/draft.htm')
 
         const html = await page.content();
         const $ = cheerio.load(html);
@@ -40,6 +40,7 @@ async function draftLists(page) {
             const pickNum = +($(pickNumEl).text());
             const team = $(teamEl).text();
             const age = +($(ageEl).text());
+            // const yrDrafted = draftYrs[i];
             const yearsPlayed = 2020 - (+($(yearsPlayedEl).text()));
             const college = $(collegeEl).text();
             const profileUrl = 'https://www.pro-football-reference.com' + $(nameEl).attr('href');;
@@ -50,14 +51,15 @@ async function draftLists(page) {
                 pickNum,
                 team,
                 age,
+                // yrDrafted,
                 yearsPlayed,
                 college,
                 profileUrl
             }
             data.push(dataRow)
         })
-        // await sleep(10000);
-    // }
+        await sleep(3000);
+    }
     return data;
 }
 
