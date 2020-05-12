@@ -18,8 +18,8 @@ const draftYrs = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 async function draftLists(page) {
     const data = [];
     
-    for (var i = 0; i < draftYrs.length; i++) {
-        await page.goto('https://www.pro-football-reference.com/years/' + draftYrs[i] + '/draft.htm')
+    // for (var i = 0; i < draftYrs.length; i++) {
+        await page.goto('https://www.pro-football-reference.com/years/2010/draft.htm')
 
         const html = await page.content();
         const $ = cheerio.load(html);
@@ -56,8 +56,8 @@ async function draftLists(page) {
             }
             data.push(dataRow)
         })
-        await sleep(10000);
-    }
+        // await sleep(10000);
+    // }
     return data;
 }
 
@@ -80,7 +80,7 @@ async function main() {
     const page = await browser.newPage();
 
     const drafts = await draftLists(page);
-    console.log(drafts);
+    // console.log(drafts);
     writeFile(drafts);
 }
 main();
