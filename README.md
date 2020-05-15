@@ -11,7 +11,7 @@ Setup:
 Scrape:
 - node scrape/index.js to run
 
-Chart:
+Chart (debugging):
 - load index.html in browser
 
 
@@ -19,3 +19,4 @@ Chart:
 
 *
 - need to add scrape filter for non data rows 
+- ? change chart to => x: pick, y: round, circle radius: career length;
