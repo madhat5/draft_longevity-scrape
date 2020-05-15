@@ -1,9 +1,15 @@
-# 2010-2019 NFL drafts
+# 2000-2019 NFL drafts
 
 Data provided by https://www.pro-football-reference.com/
 
-NPM, Yarn.
+NPM, Yarn, D3.
 
+Setup:
 - npm init --y
 - yarn add puppeteer cheerio
-- node index.js to run
+
+Scrape:
+- node scrape/index.js to run
+
+Chart:
+- load index.html in browser

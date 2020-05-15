@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
-const fs = require('fs')
+const fs = require('fs');
 
 const scrapeRes = [{
     name: 'String',
@@ -13,7 +13,7 @@ const scrapeRes = [{
     profileUrl: 'String'
 }];
 
-const draftYrs = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+const draftYrs = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 
 async function draftLists(page) {
     const data = [];
@@ -40,7 +40,7 @@ async function draftLists(page) {
             const pickNum = +($(pickNumEl).text());
             const team = $(teamEl).text();
             const age = +($(ageEl).text());
-            // const yrDrafted = draftYrs[i];
+            const yrDrafted = draftYrs[i];
             const yearsPlayed = 2020 - (+($(yearsPlayedEl).text()));
             const college = $(collegeEl).text();
             const profileUrl = 'https://www.pro-football-reference.com' + $(nameEl).attr('href');;
@@ -51,7 +51,7 @@ async function draftLists(page) {
                 pickNum,
                 team,
                 age,
-                // yrDrafted,
+                yrDrafted,
                 yearsPlayed,
                 college,
                 profileUrl
@@ -70,7 +70,7 @@ async function sleep(ms) {
 
 // CUSTOM WRITEFILE
 async function writeFile(drafts) {
-    fs.writeFile('./data.json', JSON.stringify(drafts, null, 4), (err) => {
+    fs.writeFile('./data/data.json', JSON.stringify(drafts, null, 4), (err) => {
         console.log('Write-file success');
     });
 };
