@@ -6,6 +6,7 @@ const scrapeRes = [{
     name: 'String',
     pos: 'String',
     pickNum: 'Number',
+    pickRd: 'Number',
     team: 'String',
     age: 'Number',
     yearsPlayed: 'Number',
@@ -30,6 +31,7 @@ async function draftLists(page) {
             const nameEl = $(el).find('td:nth-child(4) > a');
             const posEl = $(el).find('td:nth-child(5)');
             const pickNumEl = $(el).find('td:nth-child(2)');
+            const pickRdEl = $(el).find('th');
             const teamEl = $(el).find('td:nth-child(3)');
             const ageEl = $(el).find('td:nth-child(6)');
             const yearsPlayedEl = $(el).find('td:nth-child(7)');
@@ -38,6 +40,7 @@ async function draftLists(page) {
             const name = $(nameEl).text();
             const pos = $(posEl).text();
             const pickNum = +($(pickNumEl).text());
+            const pickRd = +($(pickRdEl).text());
             const team = $(teamEl).text();
             const age = +($(ageEl).text());
             const yrDrafted = draftYrs[i];
@@ -49,6 +52,7 @@ async function draftLists(page) {
                 name,
                 pos,
                 pickNum,
+                pickRd,
                 team,
                 age,
                 yrDrafted,
@@ -58,7 +62,7 @@ async function draftLists(page) {
             }
             data.push(dataRow)
         })
-        await sleep(3000);
+        await sleep(1000);
     }
     return data;
 }
@@ -77,7 +81,7 @@ async function writeFile(drafts) {
 
 async function main() {
     const browser = await puppeteer.launch({
-        headless: false
+        headless: true
     })
     const page = await browser.newPage();
 

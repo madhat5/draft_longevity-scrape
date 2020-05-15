@@ -13,3 +13,9 @@ Scrape:
 
 Chart:
 - load index.html in browser
+
+
+---
+
+*
+- need to add scrape filter for non data rows 
