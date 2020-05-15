@@ -43,18 +43,21 @@ g.append('text')
 // data 
 d3.json('../../data/data.json').then( data => {
     // console.log(data);
+    const cleanData = data.filter(d => d.yearsPlayed < 30);
+    // console.log(cleanData);
+
 
     var x, y, xAxisCall, yAxisCall, circles;
 
     x = d3.scaleBand()
-        .domain(data.map( d => {
+        .domain(cleanData.map( d => {
             return d.yearsPlayed;
         }))
         .range([0, width])
         .padding(0.3);
     
     y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => {
+        .domain([0, d3.max(cleanData, d => {
             return d.pickRd;
         })])
         .range([height, 0]);
@@ -80,7 +83,7 @@ d3.json('../../data/data.json').then( data => {
         .call(yAxisCall);
 
     circles = g.selectAll('circle')
-        .data(data);
+        .data(cleanData);
     circles.enter()
         .append('circle')
         .attr('cx', d => {
@@ -92,5 +95,4 @@ d3.json('../../data/data.json').then( data => {
         .attr('r', 5)
         .attr('width', x.bandwidth)
         .attr('fill', '#007041');
-
 })

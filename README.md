@@ -1,4 +1,5 @@
 # 2000-2019 NFL drafts
+###### Football player longevity, by draft round
 
 Data provided by https://www.pro-football-reference.com/
 
@@ -17,5 +18,5 @@ NPM, Yarn, D3.
 
 ---
 ##### Next
-- need to add scrape filter for non data rows 
+- add draftYr var
 - ? change chart to => x: pick, y: round, circle radius: career length;
