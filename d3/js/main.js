@@ -10,7 +10,7 @@ margin = {
     bottom: 150
 };
 
-width = 750 - margin.left - margin.right;
+width = 1000 - margin.left - margin.right;
 height = 550 - margin.top - margin.bottom;
 
 g = d3.select('#chart-area')
@@ -28,7 +28,7 @@ g.append('text')
     .attr('y', height + 100)
     .attr('font-size', '21px')
     .attr('text-anchor', 'middle')
-    .text('Career length (yrs)');
+    .text('Avg. Yrs played (yrs)');
 
 // Y
 g.append('text')
@@ -38,7 +38,7 @@ g.append('text')
     .attr('font-size', '21px')
     .attr('text-anchor', 'middle')
     .attr('transform', 'rotate(-90)')
-    .text('Round selected (#)');
+    .text('Pick (#)');
 
 // data 
 d3.json('../../data/data.json').then( data => {
@@ -46,19 +46,23 @@ d3.json('../../data/data.json').then( data => {
     const cleanData = data.filter(d => d.yearsPlayed < 30);
     // console.log(cleanData);
 
-
     var x, y, xAxisCall, yAxisCall, circles;
 
     x = d3.scaleBand()
         .domain(cleanData.map( d => {
             return d.yearsPlayed;
         }))
+
+        // loop, i =< 263 {
+        //     d3.mean(cleanData..filter(d => d.pickNum === i), d => d.yearsPlayed)
+        // }
+
         .range([0, width])
         .padding(0.3);
     
     y = d3.scaleLinear()
         .domain([0, d3.max(cleanData, d => {
-            return d.pickRd;
+            return d.pickNum;
         })])
         .range([height, 0]);
 
@@ -69,9 +73,8 @@ d3.json('../../data/data.json').then( data => {
         .call(xAxisCall)
         .selectAll('text')
             .attr('y', '10')
-            .attr('x', '-5')
-            .attr('text-anchor', 'end')
-            .attr('tranform', 'rotate(-40)');
+            .attr('x', '0')
+            .attr('text-anchor', 'middle');
 
     yAxisCall = d3.axisLeft(y)
         .ticks(7)
@@ -89,10 +92,10 @@ d3.json('../../data/data.json').then( data => {
         .attr('cx', d => {
             return x(d.yearsPlayed) + x.bandwidth() / 2
         })
-        .attr('cy', d=> {
-            return d.pickRd
+        .attr('cy', d => {
+            return y(d.pickRd)
         })
-        .attr('r', 5)
+        .attr('r', 2)
         .attr('width', x.bandwidth)
         .attr('fill', '#007041');
 })

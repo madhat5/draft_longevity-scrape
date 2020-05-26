@@ -74,7 +74,7 @@ async function sleep(ms) {
 
 // CUSTOM WRITEFILE
 async function writeFile(drafts) {
-    fs.writeFile('./data/data.json', JSON.stringify(drafts, null, 4), (err) => {
+    fs.writeFile('../data/data.json', JSON.stringify(drafts, null, 4), (err) => {
         console.log('Write-file success');
     });
 };
